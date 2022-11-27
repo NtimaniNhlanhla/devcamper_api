@@ -124,7 +124,7 @@ BootcampSchema.pre('save', async function(next) {
   }
 
   // Do not save address in DB
-  this.addres = undefined;
+  this.address = undefined;
   next();
 })
 
