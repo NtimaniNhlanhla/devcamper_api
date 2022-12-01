@@ -5,6 +5,7 @@ const morgan = require('morgan');
 const connectDB = require('./config/db')
 const errorHandler = require('./middleware/error')
 const fileupload = require('express-fileupload')
+const cookieParder = require('cookie-parser')
 
 
 // Load env files
@@ -16,11 +17,14 @@ connectDB();
 //Route Files
 const bootcamp = require('./routes/bootcamps')
 const courses = require('./routes/courses')
+const auth = require('./routes/auth')
 
 const app = express();
 
 // Body parser
 app.use(express.json())
+
+app.use(cookieParder())
 
 // Dev loggin middleware
 if(process.env.NODE_ENV === 'development'){
@@ -36,6 +40,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Mount Routers
 app.use('/api/v1/bootcamps', bootcamp)
 app.use('/api/v1/courses', courses)
+app.use('/api/v1/auth', auth)
 
 app.use(errorHandler)
 
